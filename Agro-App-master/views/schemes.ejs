@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/public/styles/schemes.css">
+</head>
+
+<body>
+    <div class="viewDesc" id="viewDescription">
+        <h3 id="viewDescSchemeName"> Scheme Name </h3>
+        <h5>
+            Description :
+        </h5>
+        <textarea id="description_view" readonly style="width: 300px; height: 200px;"></textarea><br>
+        <button type="button" id="viewcancelButton">Cancel</button>
+
+
+    </div>
+    <div id="editSchemeForm" class="edit-scheme-form">
+        <h1>Edit Scheme</h1>
+        <div style="width: 300px;">
+            <label for="schemeId">Scheme Id:</label><br>
+            <input type="text" id="edit_schemeId" name="schemeId" readonly><br>
+            <label for="schemeName">Scheme Name:</label><br>
+            <input type="text" id="edit_schemeName" name="schemeName"><br>
+            <label for="category">Category:</label><br>
+            <input type="text" id="edit_category" name="category"><br>
+            <label for="lastDate">Last Date:</label><br>
+            <input type="date" id="edit_lastDate" name="lastDate"><br>
+            <label for="edit_description">Description:</label><br>
+            <textarea id="edit_description" name="edit_description"></textarea><br>
+
+            <button id="editSaveButton" onclick="saveEdit()" type="submit">Save</button>
+            <button type="button" id="cancelButton">Cancel</button>
+        </div>
+    </div>
+    <div id="addSchemeForm" class="add-scheme-form">
+        <h1>Add Scheme</h1>
+        <div style="width: 400px;">
+            <label for="scheme_id">Scheme Id:</label><br>
+            <input type="text" id="addschemeId" name="scheme_id"><br>
+            <label for="scheme_name">Scheme Name:</label><br>
+            <input type="text" id="addschemeName" name="scheme_name"><br>
+            <label for="scheme_category">Category:</label><br>
+            <input type="text" id="addcategory" name="scheme_category"><br>
+            <label for="last_date">Last Date:</label><br>
+            <input type="date" id="addlastDate" name="last_date"><br>
+            <label for="scheme_description">Description:</label><br>
+            <textarea id="adddescription" name="scheme_description"></textarea><br>
+
+            <button id="addSaveButton"  onclick="addScheme()">Save</button>
+            <button type="button" id="addcancelButton">Cancel</button>
+
+        </div>
+           
+        
+    </div>
+
+
+    <div class="sidebar">
+        <div style="display: flex;flex-direction: column;">
+            <img src="/public/img/logo.png" style="height: 120px; width: 120px; margin-left: 60px;" />
+            <p style="font-size: larger; color: black; font-weight: 600; margin-left: 70px; margin-bottom: 20px;">
+                FarmEasy</p>
+        </div>
+
+        <div
+            style="height: 600px; background-color: rgba(253, 251, 255, 0.55); font-size: large; padding: 10px; border-radius: 5px;">
+            <p style="font-size: 22px; font-weight: 700; color: black; margin-bottom: 8px; margin-top: 5px; 
+            margin-left: 60px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Schemes</p>
+             <a href="/dashboard" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Dashboard</p>
+                </div>
+            </a>
+
+            <div style="height: 5px;"></div>
+
+            <a href="#" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items" style="background-color: rgb(25, 127, 164);">
+                    <p>Schemes</p>
+                </div>
+            </a>
+            <div style="height: 5px;"></div>
+            <a href="/contacts" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Contacts</p>
+                </div>
+            </a>
+
+            <div style="height: 5px;"></div>
+            <a href="/feeds" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Feeds</p>
+                </div>
+            </a>
+            <div style="height: 5px;"></div>
+            <a href="/profile" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>User Profile</p>
+                </div>
+            </a>
+            <div style="height: 5px;"></div>
+            <a href="/adminLogout" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Logout</p>
+                </div>
+            </a>
+
+
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="Sdetails"
+        style="display: flex; flex-direction: column; position: fixed; top: 0; left: 30; width: 100%; background-color: white; z-index: 1;">
+        <div class="bslot">
+            <div class="op">
+                <p>Add Scheme</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="MainArea" style="margin-top:70px ;">
+
+            <% schemes.forEach(scheme=>{ %>
+            <div class="schemeCards">
+                <div class="srow">
+                    <div class="datacontainer">
+                        <P style="font-size: larger;"><b><%= scheme.scheme_name %></b></P>
+                        <p style="margin-top: -10px;">Category : <%= scheme.scheme_category %></p>
+                        <p style="margin-top: -10px;">Last date : <%= scheme.slast_date %></p>
+                        <p style="margin-top: -10px;">Updated on : <%= scheme.screated_at %></p>
+                    </div>
+                    <div class="countContainer">
+                        <p style="margin-top: -10px;"><b>Under Review Count : <%= scheme.pending_count %><span id="underReviewValue"></span></b>
+                        </p>
+                        <p style="margin-top: -10px;"><b>Approved Count : <%= scheme.approved_count %> <span id="approvedCount"></span></b></p>
+                        <p style="margin-top: -10px;"><b>Rejected Count : <%= scheme.rejected_count %><span id="rejectedCount"></span></b></p>
+                        <p style="margin-top: -10px;"><b>Total Count : <%= scheme.total_count %><span id="totalCount"></span></b></p>
+
+                    </div>
+                </div>
+                <div
+                    style="display: flex; flex-direction: row; padding-left: 40px; margin-left: 40px; margin-bottom: 15px;">
+                    <div onclick="openEdit(edit_schemeId='<%= scheme.scheme_id %>',edit_schemeName='<%= scheme.scheme_name %>',edit_category='<%= scheme.scheme_category %>',edit_lastDate='<%= scheme.last_date %>',edit_updatedDate='<%= scheme.created_at %>',edit_description='<%= scheme.scheme_description %>')" class="edit-button" style=" display: block;height: 30px; width: 80px; background-color: rgb(9, 9, 117); color: #fff; font-size: 15px; 
+            border-radius: 3px; margin-left: 10px;cursor: pointer;">
+                        <P style="margin-left: 25px; margin-top: 7px;">Edit</P>
+                    </div>
+
+                    <div onclick="openEnroll('<%= scheme._id  %>')" style=" display: block;height: 30px; width: 125px;margin-left: 10px; background-color: rgb(9, 9, 117); color: #fff; font-size: 15px; 
+            border-radius: 3px; cursor: pointer;">
+                        <P style="margin-left: 25px; margin-top: 7px;"> View Enroll</P>
+                    </div>
+                    <div id="showdescription" onclick="showdescriptionFun(description='<%= scheme.scheme_description %>',viewDescSchemeName='<%= scheme.scheme_name %>')" style=" display: block;height: 30px; width: 123px;margin-left: 10px; background-color: rgb(9, 9, 117); color: #fff; font-size: 15px; 
+            border-radius: 3px; cursor: pointer;">
+                        <P style="margin-left: 25px; margin-top: 7px;">Description</P>
+                    </div>
+                    <div onclick="deleteScheme(delete_schemeId='<%= scheme.scheme_id %>')" class="edit-button" style=" display: block;height: 30px; width: 80px; background-color: rgb(134, 5, 8); color: #fff; font-size: 15px; 
+                        border-radius: 3px; margin-left: 10px;cursor: pointer;">
+                                    <P style="margin-left: 20px; margin-top: 7px;">Delete</P>
+                    </div>
+
+                </div>
+
+            </div>
+            <% }) %>
+        </div>
+
+       
+
+    </div>
+
+    <script>
+        // Get the "Edit" buttons
+        var editButtons = document.querySelectorAll('.edit-button');
+        var bslot = document.querySelector('.bslot');
+
+
+        // Get the edit scheme form
+        var editSchemeForm = document.getElementById('editSchemeForm');
+        var cancelButton = document.getElementById('cancelButton');
+        var addcancelButton = document.getElementById('addcancelButton');
+        var addSchemeForm = document.getElementById('addSchemeForm');
+        var showdescription  = document.getElementById('showdescription');
+        var viewDescription = document.getElementById('viewDescription');
+        var viewcancelButton = document.getElementById('viewcancelButton');
+
+        cancelButton.addEventListener('click', function () {
+            editSchemeForm.style.display = "none";
+        })
+
+        bslot.addEventListener('click', function () {
+            addSchemeForm.style.display = "block"
+        })
+        addcancelButton.addEventListener('click', function () {
+            addSchemeForm.style.display = "none";
+        })
+        viewcancelButton.addEventListener('click',()=>{
+            viewDescription.style.display="none";
+        })
+
+        
+
+        function showdescriptionFun(description,scheme_name){
+            viewDescription.style.display="block";
+            viewDescription.style.position="fixed";
+            description_view.value = description;
+            document.getElementById('viewDescSchemeName').textContent = scheme_name;
+        }
+
+        async function openEnroll(id){
+           window.location.href='/enroll/'+id;
+            
+        } 
+
+        async function addScheme(){
+            var schemeId = document.getElementById('addschemeId').value;
+            var schemeName = document.getElementById('addschemeName').value;
+            var category = document.getElementById('addcategory').value;
+            var lastDate = document.getElementById('addlastDate').value;
+            var description = document.getElementById('adddescription').value;
+            document.getElementById('addSaveButton').disabled = true;
+
+            // Send the data to the server
+           var data = await fetch('/schemes/addScheme', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    scheme_id: schemeId,
+                    scheme_name: schemeName,
+                    scheme_category: category,
+                    last_date: lastDate,
+                    scheme_description: description
+                })
+            })
+            .then(response => {
+                if(response.status === 200){
+                    alert('Scheme added successfully');
+                    addSchemeForm.style.display = "none";
+                    document.getElementById('addSaveButton').disabled = false;
+                    window.location.reload();
+
+                }
+                else{
+                    alert('Failed to add scheme');
+                    document.getElementById('addSaveButton').disabled = false;
+                }
+            })
+            
+        }
+
+
+        function openEdit(edit_schemeId,edit_schemeName,edit_category,edit_lastDate,edit_updatedDate,edit_description){
+            
+            editSchemeForm.style.display = "block";
+            document.getElementById('edit_schemeId').value = edit_schemeId;
+            document.getElementById('edit_schemeName').value = edit_schemeName;
+            document.getElementById('edit_category').value = edit_category; 
+            document.getElementById('edit_lastDate').value = edit_lastDate;
+            document.getElementById('edit_description').value = edit_description;
+
+            
+        }
+
+        async function saveEdit()
+        {   var edit_schemeId = document.getElementById('edit_schemeId').value;
+            var edit_schemeName = document.getElementById('edit_schemeName').value;
+            var edit_category = document.getElementById('edit_category').value;
+            var edit_lastDate = document.getElementById('edit_lastDate').value;
+            var edit_description = document.getElementById('edit_description').value;
+            document.getElementById('editSaveButton').disabled = true;
+           var data = await fetch('/schemes/editScheme/'+edit_schemeId, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    scheme_name: edit_schemeName,
+                    scheme_category: edit_category,
+                    last_date: edit_lastDate,
+                    scheme_description: edit_description
+                })
+            })
+            .then(response => {
+                if(response.status === 200){
+                    alert('Scheme Edited Successfully');
+                    editSchemeForm.style.display = "none";
+                    document.getElementById('editSaveButton').disabled = false;
+                    window.location.reload();
+                }
+                else{
+                    alert('Failed to edit scheme');
+                    document.getElementById('editSaveButton').disabled = false;
+                }
+            })
+        }
+         
+        async function deleteScheme(delete_schemeId){
+            var data = await fetch('/schemes/deleteScheme/'+delete_schemeId, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if(response.status === 200){
+                    alert('Scheme Deleted Successfully');
+                    window.location.reload();
+                }
+                else{
+                    alert('Failed to delete scheme');
+                }
+            })
+        }
+
+        
+    </script>
+
+
+    <script>
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/styles/register.css">
+    <title>Signup Page</title>
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/code-512.png"
+        type="image/icon type">
+</head>
+<body>
+    <div class="container">
+        <img src="/public/img/logo.png" alt="logo" width="100" height="100">
+        <h2>Sign Up</h2>
+        <form id="signup-form">
+            <input type="text" placeholder="Name" id="signup-name" required>
+            <input type="email" placeholder="Email" id="signup-email" required>
+            <input type="password" placeholder="Password" id="signup-password" required>
+            <input type="tel" placeholder="Mobile" id="signup-mobile" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p id="signup-message" class="hidden">Signed up successfully!</p>
+        <p>Already have an account? <a href="/login">Login</a></p>
+    </div>
+    <script>
+       document.addEventListener('DOMContentLoaded', function() {
+    const signupForm = document.getElementById('signup-form');
+    const signupMessage = document.getElementById('signup-message');
+
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Disable the signup button during the request
+            const signupButton = signupForm.querySelector('button');
+            signupButton.disabled = true;
+            signupButton.textContent = 'Signing up...';
+
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const mobile = document.getElementById('signup-mobile').value;
+
+            const userData = {
+                name: name,
+                email: email,
+                password: password,
+                mobile: mobile
+            };
+
+            // Send the form data to the server
+            fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => {
+                console.log(response);
+                if (response.ok) {
+                    signupButton.textContent = 'Sign Up';
+                    return window.location.href = '/login';
+                } else {
+                    return response.json().then(function(error) {
+                        throw new Error(error.message);
+                    });
+                }
+                // signupMessage.classList.remove('hidden');
+                
+               
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle errors
+                signupButton.textContent = 'Sign Up';
+            })
+            .finally(() => {
+                // Re-enable the signup button
+                signupButton.disabled = false;
+            });
+        });
+    }
+});
+
+    </script>
+</body>
+</html>

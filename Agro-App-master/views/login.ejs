@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="/public/styles/login.css">
+
+    <title>Login Page</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="835440576612-d421vju8r0n1bgej1i5eb3kf2lfinjc9.apps.googleusercontent.com">
+
+    <link rel="icon" href="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/code-512.png"
+        type="image/icon type">
+   
+</head>
+<body>
+    <div class="container">
+        <img src="/public/img/logo.png" alt="logo" width="100" height="100" >
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" placeholder="Email" id="login-email" required>
+            <input type="password" placeholder="Password" id="login-password" required>
+            <button id="loginButton" type="submit" >Login</button>
+        </form>
+    </div> 
+    <script>
+        function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
+function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('login-form');
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+          
+
+            // Disable the login button during the request
+            const loginButton = loginForm.querySelector('button');
+            loginButton.disabled = true;
+            loginButton.textContent = 'Logging in...';
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const userData = {
+                user_email: email,
+                user_password: password
+            };
+
+            // Send the form data to the server
+            fetch('/adminLogin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => {
+                if(response.status === 200){
+                    window.location.href = '/dashboard';
+                }
+                 else {
+                    alert('Invalid email or password');
+                    loginButton.textContent = 'Login';
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle errors
+                loginButton.textContent = 'Login';
+            })
+            .finally(() => {
+                // Re-enable the login button
+                loginButton.disabled = false;
+            });
+        });
+    }
+});
+
+    </script>
+</body>
+</html>

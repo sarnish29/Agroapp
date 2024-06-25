@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/public/styles/feeds.css" />
+  </head>
+
+  <body>
+    <div id="addFeedForm" class="add-feed-form">
+      <h1>Post Feeds</h1>
+      <div style="width: 350px">
+        <label for="feedImage">Upload Image:</label><br />
+        <input
+          type="file"
+          id="feedImage"
+          name="feedImage"
+          placeholder="Enter image URL"
+        /><br /><br />
+
+        <label for="feedTitle">Card Title:</label><br />
+        <input
+          type="text"
+          id="feedTitle"
+          name="feedTitle"
+          placeholder="Enter card title"
+        /><br /><br />
+
+        <label for="feedDescription">Card Description:</label><br />
+        <textarea
+          id="feedDescription"
+          name="feedDescription"
+          rows="4"
+          placeholder="Enter card description"
+        ></textarea
+        ><br /><br />
+        <label for="feedource">Source URL:</label><br />
+        <input
+          type="text"
+          id="feedSource"
+          name="feedSource"
+          placeholder="Enter Source URL"
+        /><br /><br />
+
+        <button onclick="addFeed()" type="submit">Post</button>
+        <button type="button" id="addcancelButton">Cancel</button>
+      </div>
+    </div>
+    <div id="editFeedForm" class="edit-feed-form">
+      <h1>Edit Feed</h1>
+      <div style="width: 350px">
+        <label for="feedID">Feed ID:</label><br />
+        <textarea
+          type="file"
+          id="editfeedID"
+          name="feedID"
+         readonly
+         style="height: 30px;"
+        ></textarea><br>
+        <label for="feedImage">Upload Image:</label><br />
+        <input
+          type="file"
+          id="editfeedImage"
+          name="feedImage"
+          placeholder="Enter image URL"
+        /><br /><br />
+
+        <label for="feedTitle">Card Title:</label><br />
+        <input
+          type="text"
+          id="editfeedTitle"
+          name="feedTitle"
+          placeholder="Enter card title"
+        /><br /><br />
+
+        <label for="feedDescription">Card Description:</label><br />
+        <textarea
+          id="editfeedDescription"
+          name="feedDescription"
+          rows="4"
+          placeholder="Enter card description"
+        ></textarea
+        ><br /><br />
+        <label for="feedSource">Source URL:</label><br />
+        <input
+          type="text"
+          id="editfeedSource"
+          name="feedSource"
+          placeholder="Enter Source URL"
+        /><br /><br />
+
+        <button onclick="editFeed()" type="submit">Post</button>
+        <button type="button" id="editcancelButton">Cancel</button>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div style="display: flex; flex-direction: column">
+        <img
+          src="/public/img/logo.png"
+          style="height: 120px; width: 120px; margin-left: 60px"
+        />
+        <p
+          style="
+            font-size: larger;
+            color: black;
+            font-weight: 600;
+            margin-left: 70px;
+            margin-bottom: 20px;
+          "
+        >
+          FarmEasy
+        </p>
+      </div>
+
+      <div
+        style="
+          height: 600px;
+          background-color: rgba(253, 251, 255, 0.55);
+          font-size: large;
+          padding: 10px;
+          border-radius: 5px;
+        "
+      >
+        <p
+          style="
+            font-size: 22px;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 8px;
+            margin-top: 5px;
+            margin-left: 80px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          "
+        >
+          Feeds
+        </p>
+        <a href="/dashboard" style="text-decoration: none; color: aliceblue">
+          <div class="side-items">
+            <p>Dashboard</p>
+          </div>
+        </a>
+
+        <div style="height: 5px"></div>
+
+        <a href="/schemes" style="text-decoration: none; color: aliceblue">
+          <div class="side-items">
+            <p>Schemes</p>
+          </div>
+        </a>
+        <div style="height: 5px"></div>
+        <a href="/contacts" style="text-decoration: none; color: aliceblue">
+          <div class="side-items">
+            <p>Contacts</p>
+          </div>
+        </a>
+
+        <div style="height: 5px"></div>
+        <a href="#" style="text-decoration: none; color: aliceblue">
+          <div class="side-items" style="background-color: rgb(25, 127, 164)">
+            <p>Feeds</p>
+          </div>
+        </a>
+        <div style="height: 5px"></div>
+        <a href="/profile" style="text-decoration: none; color: aliceblue">
+          <div class="side-items">
+            <p>User Profile</p>
+          </div>
+        </a>
+        <div style="height: 5px"></div>
+        <a href="/adminLogout" style="text-decoration: none; color: aliceblue">
+          <div class="side-items">
+            <p>Logout</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="dashboard">
+      <div
+        class="Sdetails"
+        style="
+          display: flex;
+          flex-direction: column;
+          position: fixed;
+          top: 0;
+          left: 30;
+          width: 100%;
+          background-color: white;
+          z-index: 1;
+        "
+      >
+        <div class="bslot">
+          <div class="op">
+            <p>New Post</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cardArea" style="margin-top: 80px">
+        <% feeds.forEach(feed=>{ %>
+        <div class="card">
+          <img src="<%= feed.feed_img %>" alt="Card Image" class="card-image" style="margin-top: 50px;" />
+          <div class="card-content">
+            <h3><%= feed.feed_name %></h3>
+            <p>
+                <%= feed.feed_description %>
+            </p>
+            <a
+              href="<%= feed.feed_source_url %>"
+              target="_blank"
+              class="card-button"
+              >View Link</a
+            >
+            <div
+              id="editpostButton"
+              onclick="openEdit('<%= feed._id %>','<%= feed.feed_name %>','<%= feed.feed_description %>','<%= feed.feed_source_url %>')"
+              target="_blank"
+              class="card-button1"
+            >
+              Edit
+            </div>
+            <div
+              onclick="deleteFeed('<%= feed._id %>')"
+              class="card-button2"
+            >
+              Delete
+            </div>
+            <p class="card-a">Posted on : <%= feed.screated_at %></p>
+          </div>
+        </div>
+        <% }) %>
+      
+      </div>
+    </div>
+    <script>
+      var bslot = document.querySelector(".bslot");
+      var addcancelButton = document.getElementById("addcancelButton");
+      var addFeedForm = document.getElementById("addFeedForm");
+      var editpostButton = document.getElementById("editpostButton");
+      var editcancelButton = document.getElementById("editcancelButton");
+      var editFeedForm = document.getElementById("editFeedForm");
+      bslot.addEventListener("click", function () {
+        addFeedForm.style.display = "block";
+      });
+
+      addcancelButton.addEventListener("click", () => {
+        addFeedForm.style.display = "none";
+      });
+
+      function openEdit(feedID,feed_name,feedDescription,feed_source_url) {
+        editFeedForm.style.display = "block";
+        document.getElementById('editfeedID').value=feedID;
+        document.getElementById('editfeedTitle').value=feed_name;
+        document.getElementById('editfeedDescription').value=feedDescription;
+        document.getElementById('editfeedSource').value=feed_source_url;
+      }
+
+      editcancelButton.addEventListener("click", () => {
+        editFeedForm.style.display = "none";
+      });
+
+      async function addFeed() {
+        // Get form input values
+        var feedImage = document.getElementById("feedImage").files[0];
+        var feedTitle = document.getElementById("feedTitle").value;
+        var feedDescription = document.getElementById("feedDescription").value;
+        var feedSource = document.getElementById("feedSource").value;
+
+
+        // Create FormData object
+        var formData = new FormData();
+
+        // Append form data to FormData object
+        formData.append("imgFile", feedImage);
+        formData.append("feed_name", feedTitle);
+        formData.append("feed_description", feedDescription);
+        formData.append("feed_source_url", feedSource);
+
+        try {
+          // Send form data to the server
+          const response = await fetch("/addFeed/", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.status === 200) {
+            alert("Feed Added Successfully");
+            const data = await response.json();
+            window.location.reload();
+
+        } else if (response.status === 400) {
+            alert("No files were uploaded");
+          }
+          else if (response.status === 600) {
+            alert("Only Image files were allowed");
+          }
+          else {
+            alert("Failed to add feed. Status code: " + response.status);
+          }
+        } catch (error) {
+          console.error("Error adding feed:", error);
+          alert("Failed to add feed. Please try again later.");
+        }
+      }
+      
+      async function editFeed(){
+
+         // Get form input values
+        var feedImage = document.getElementById("editfeedImage").files[0];
+        var feedTitle = document.getElementById("editfeedTitle").value;
+        var feedDescription = document.getElementById("editfeedDescription").value;
+        var feedSource = document.getElementById("editfeedSource").value;
+        var feedID = document.getElementById("editfeedID").value;
+
+
+        // Create FormData object
+        var formData = new FormData();
+
+        // Append form data to FormData object
+        formData.append("imgFile", feedImage);
+        formData.append("feed_name", feedTitle);
+        formData.append("feed_description", feedDescription);
+        formData.append("feed_source_url", feedSource);
+
+        try {
+          // Send form data to the server
+          const response = await fetch("/updateFeed/"+feedID, {
+            method: "PUT",
+            body: formData,
+          });
+
+          if (response.status === 200) {
+            alert("Feed edited successfully");
+            const data = await response.json();
+            window.location.reload();
+
+        } else if (response.status === 400) {
+            alert("No files were uploaded");
+          }
+          else if (response.status === 600) {
+            alert("Only Image files were allowed");
+          }
+          else {
+            alert("Failed to add feed. Status code: " + response.status);
+          }
+        } catch (error) {
+          console.error("Error adding feed:", error);
+          alert("Failed to add feed. Please try again later.");
+        }
+        
+      }
+      
+      async function deleteFeed(feedID){
+        var data = await fetch('/feeds/deleteFeed/'+feedID, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if(response.status === 200){
+                    alert('Feed Deleted Successfully');
+                    window.location.reload();
+                }
+                else{
+                    alert('Failed to delete Feed');
+                }
+            })
+
+      }
+    </script>
+  </body>
+</html>

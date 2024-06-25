@@ -1,0 +1,196 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header { 
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.request-counts {
+    text-align: right;
+}
+
+.sidebar {
+    background-color: #e4e4e4;
+    color: #fff;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    
+}
+
+.side-items{
+    background-color: rgb(10, 78, 13);
+    border-radius: 10px;
+    padding: 0.2px;
+    padding-left: 10px;
+    cursor: pointer;
+    padding-right: 7px;
+}
+
+
+.dashboard {
+    margin-left: 320px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 400px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+    margin-right: 10px;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-status {
+    color: green;
+}
+
+.card-comments {
+    font-style: italic;
+    color: #888;
+    margin-top: 8px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.actions button:hover {
+    opacity: 0.8;
+}
+
+.actions button.approve {
+    background-color: green;
+    color: white;
+}
+
+.actions button.reject {
+    background-color: red;
+    color: white;
+}
+.actions button.comment {
+    background-color: rgb(0, 95, 116);
+    color: white;
+}
+.profile {
+    border-radius: 3px;
+    background-color: rgb(58, 2, 104);
+    color: white;
+    padding: 5px;
+}
+
+.cardFlex{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 100px;
+}
+
+
+#viewApprove {
+    position: absolute;
+    display: none;
+    width: fit-content;
+    margin-top: 150px;
+    z-index: 2;
+    margin-left: 500px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#viewApprove button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+#viewReject {
+    position: absolute;
+    display: none;
+    width: fit-content;
+    margin-top: 150px;
+    z-index: 2;
+    margin-left: 500px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#viewReject button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#viewComment {
+    position: absolute;
+    display: none;
+    width: fit-content;
+    margin-top: 150px;
+    z-index: 2;
+    margin-left: 500px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#viewComment button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+

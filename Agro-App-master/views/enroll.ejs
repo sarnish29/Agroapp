@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/public/styles/enroll.css">
+    
+</head>
+
+<body>
+    <div class="viewApprove" id="viewApprove">
+        <h3 id="approveUsername"></h3>
+        <h4 id="approveUseremail"></h4>
+        <textarea id="approveComment" style="width: 300px; height: 200px;"></textarea><br>
+        <button type="button" onclick="approve()" id="approveButton">Approve</button>
+        <button type="button" id="approvecancelButton">Cancel</button>
+    </div>
+    <div class="viewReject" id="viewReject">
+        <h3 id="rejectUsername"></h3>
+        <h4 id="rejectUseremail"></h4>
+        <textarea id="rejectComment" style="width: 300px; height: 200px;"></textarea><br>
+        <button type="button" onclick="reject()" id="rejectApprovalButton">Reject</button>
+        <button type="button" id="rejectcancelButton">Cancel</button>
+    </div>
+    <div class="viewComment" id="viewComment">
+        <h3 id="commentUsername"></h3>
+        <h4 id="commentUseremail"></h4>
+        <textarea id="CommentOnly" style="width: 300px; height: 200px;"></textarea><br>
+        <button type="button" onclick="comment()" id="commentButton">Comment</button>
+        <button type="button" id="commentcancelButton">Cancel</button>
+    </div>
+    <div class="sidebar">
+        <div style="display: flex;flex-direction: column;">
+            <img src="/public/img/logo.png" style="height: 120px; width: 120px; margin-left: 60px;" />
+            <p style="font-size: larger; color: black; font-weight: 600; margin-left: 70px; margin-bottom: 20px;">
+                FarmEasy</p>
+        </div>
+
+        <div
+            style="height: 600px; background-color: rgba(253, 251, 255, 0.55); font-size: large; padding: 10px; border-radius: 5px;">
+            <p style="font-size: 22px; font-weight: 700; color: black; margin-bottom: 8px; 
+            margin-top: 5px; margin-left: 70px; font-family: 'Segoe UI', Tahoma, Geneva, 
+            Verdana, sans-serif;">Enroll</p>
+             <a href="/dashboard" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Dashboard</p>
+                </div>
+            </a>
+
+
+            <div style="height: 5px;"></div>
+
+            <a href="/schemes" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Schemes</p>
+                </div>
+            </a>
+            <div style="height: 5px;"></div>
+            <a href="/contacts" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Contacts</p>
+                </div>
+            </a>
+
+            <div style="height: 5px;"></div>
+            <a href="/feeds" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Feeds</p>
+                </div>
+            </a>
+            <div style="height: 5px;"></div>
+            <a href="/profile" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>User Profile</p>
+                </div>
+            </a>
+            <div style="height: 5px;"></div>
+            <a href="/adminLogout" style="text-decoration: none; color: aliceblue;">
+                <div class="side-items">
+                    <p>Logout</p>
+                </div>
+            </a>
+
+
+
+
+
+
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="Sdetails" style="display: flex; flex-direction: column; position: fixed; top: 0; left: 30; width: 100%; background-color: white; z-index: 1;">
+            <h1><%= subsidy.scheme_name %></h1>
+            <h3 style="margin-top: -10px;">Category : <%= subsidy.scheme_category %></h3>
+            <h3 style="margin-top: -10px;">Scheme ID : <%= subsidy.scheme_id %></h3>
+          </div>
+        <br>
+        <div class="cardFlex">
+            <% applied_users.forEach(user => { %>
+                <div class="card">
+                    <h3 class="card-title"><%= user.user_name %></h3>
+                    <div class="card-comments" style="margin-bottom: 8px;">Email: <%= user.user_email %></div>
+                    <div class="card-status" id="status" style="color: 
+                        <% if (user.status === 'Approved') { %>
+                            green
+                        <% } else if (user.status === 'Rejected') { %>
+                            red
+                        <% } else { %>
+                            blue
+                        <% } %>;">
+                        Status: <%= user.status %>
+                    </div>
+                    <div class="card-comments">Comments: <%= user.comment %></div>
+                    <div class="actions">
+                        <button class="approve" id="approveAction" onclick="onApprove('<%= user.user_name %>','<%= user.user_email %>')">Approve</button>
+                        <button class="reject" id="rejectAction" onclick="onReject('<%= user.user_name %>','<%= user.user_email %>')">Reject</button>
+                        <button class="comment" id="commentAction" onclick="onComment('<%= user.user_name %>','<%= user.user_email %>')">Add Comment</button>
+                        <div class="profile">
+                            <a href="/approvalProfile/<%= user.user_email%>" style="text-decoration: none; color: #f0f0f0; font-size: 14px;">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+            
+
+        </div>
+       
+    </div>
+
+    <script>
+        var viewApprove = document.getElementById("viewApprove");
+        var viewReject =document.getElementById("viewReject");
+        var approveAction = document.getElementById("approveAction");
+        var approvecancelButton = document.getElementById("approvecancelButton");
+        var rejectcancelButton = document.getElementById("rejectcancelButton");
+        var rejectAction = document.getElementById("rejectAction");
+        var commentAction = document.getElementById("commentAction");
+        var viewComment = document.getElementById("viewComment");
+        var commentcancelButton = document.getElementById("commentcancelButton");
+        var status = document.getElementById("status");
+
+
+        approvecancelButton.addEventListener('click',()=>{
+            viewApprove.style.display="none";
+        })
+        rejectcancelButton.addEventListener('click',()=>{
+            viewReject.style.display="none";
+        })
+        commentcancelButton.addEventListener('click',()=>{
+            viewComment.style.display="none";
+        })
+
+        function onApprove(name,email){
+            viewApprove.style.display="block";
+            document.getElementById("approveUsername").innerHTML = name;
+            document.getElementById("approveUseremail").innerHTML = email;
+        }
+        function onReject(name,email){
+            viewReject.style.display="block";
+            document.getElementById("rejectUsername").innerHTML = name;
+            document.getElementById("rejectUseremail").innerHTML = email;
+        }
+        function onComment(name,email){
+            viewComment.style.display="block";
+            document.getElementById("commentUsername").innerHTML = name;
+            document.getElementById("commentUseremail").innerHTML = email;
+        }
+
+        function approve(){
+
+            const comment = document.getElementById("approveComment").value;
+            const user_email = document.getElementById("approveUseremail").innerHTML;
+            const scheme_id = '<%= subsidy.scheme_id %>';
+
+            var response = fetch('/enroll/approve',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_email,
+                    scheme_id,
+                    comment
+                })
+            }).then(res => {
+                if(res.status === 200){
+                    alert("Approved Successfully");
+                    location.reload();
+                }
+                else{
+                    alert("Failed to approve");
+                }
+            })
+
+            viewApprove.style.display="none";
+
+        }
+
+       function reject(){
+        const comment = document.getElementById("rejectComment").value;
+        const user_email = document.getElementById("rejectUseremail").innerHTML;
+        const scheme_id = '<%= subsidy.scheme_id %>';
+        var response = fetch('/enroll/reject',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_email,
+                scheme_id,
+                comment
+            })
+        }).then(res => {
+            if(res.status === 200){
+                alert("Rejected Successfully");
+                location.reload();
+            }
+            else{
+                alert("Failed to reject");
+            }
+        })
+       }
+
+       function comment(){
+        const comment = document.getElementById("CommentOnly").value;
+        const user_email = document.getElementById("commentUseremail").innerHTML;
+        const scheme_id = '<%= subsidy.scheme_id %>';
+        var response = fetch('/enroll/comment',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_email,
+                scheme_id,
+                comment
+            })
+        }).then(res => {
+            if(res.status === 200){
+                alert("Commented Successfully");
+                location.reload();
+            }
+            else{
+                alert("Failed to comment");
+            }
+        })
+       }
+
+    </script>
+    
+</body>
+
+</html>

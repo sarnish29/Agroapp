@@ -1,0 +1,258 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.request-counts {
+    text-align: right;
+}
+
+.sidebar {
+    background-color: #e4e4e4;
+    color: #fff;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    
+}
+
+.side-items{
+    background-color: rgb(10, 78, 13);
+    border-radius: 10px;
+    padding: 0.2px;
+    padding-left: 10px;
+    cursor: pointer;
+    padding-right: 7px;
+}
+
+
+.dashboard {
+    margin-left: 320px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+  
+  width: 800px;
+    background-color: #f9fbfd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .card-image {
+    flex: 0 0 30%;
+    height: 150px;
+    width: 100px;
+  }
+
+  .card-content {
+    flex: 1;
+    padding-left: 10px;
+  }
+
+  .card-content h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+
+  .card-content p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .card-button {
+    background-color: #4CAF50; /* Green color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px; /* Add some margin from the paragraph */
+    cursor: pointer; /* Indicate clickable behavior */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+  .card-button:hover {
+    background-color: #3e8e41; /* Change background color on hover */
+  }
+
+  .card-button1 {
+    background-color: #325087; /* Green color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px; /* Add some margin from the paragraph */
+    cursor: pointer; /* Indicate clickable behavior */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+  .card-button1:hover {
+    background-color: #003556; /* Change background color on hover */
+  }
+
+  .card-button2 {
+    background-color: #d15e4a; /* Green color */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px; /* Add some margin from the paragraph */
+    cursor: pointer; /* Indicate clickable behavior */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+  .card-button2:hover {
+    background-color:#5a1d09 ; /* Change background color on hover */
+  }
+
+  .card-a {
+    /* Green color */
+    border: none;
+    color: rgb(2, 0, 0);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px; /* Add some margin from the paragraph */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+.bslot{
+    width: 180px;
+    height: 50px;
+    background-color: rgba(6, 75, 24, 0.957);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    
+}
+
+.op {
+    color: #fff;
+    padding-left: 55px;
+}
+
+.edit-feed-form {
+    position: fixed;
+    display: none;
+    width: fit-content;
+    margin-top: 100px;
+    z-index: 5;
+    margin-left: 500px;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-feed-form form {
+    width: 400px;
+}
+
+.edit-feed-form label {
+    font-weight: bold;
+}
+
+.edit-feed-form input[type="text"],
+.edit-feed-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.edit-feed-form button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-feed-form button:hover {
+    background-color: #0056b3;
+}
+
+.add-feed-form {
+    position: fixed;
+    display: none;
+    width: fit-content;
+    margin-top: 100px;
+    z-index: 5;
+    margin-left: 500px;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-feed-form form {
+    width: 400px;
+}
+
+.add-feed-form label {
+    font-weight: bold;
+}
+
+.add-feed-form input[type="text"],
+.add-feed-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.add-feed-form button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-feed-form button:hover {
+    background-color: #0056b3;
+}

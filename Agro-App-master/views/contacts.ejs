@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/public/styles/contact.css" />
+</head>
+
+<body>
+  <div id="addContactForm" class="add-contact-form">
+    <h1>Add Contact</h1>
+    <div style="width: 300px;">
+      <label for="userIMG">Contact Img :</label><br>
+      <input type="file" id="addContactIMG" name="userIMG"><br>
+      <label for="userName">User Name :</label><br>
+      <input type="text" id="addUserName" name="userName"><br>
+      <label for="organisation">Organisation :</label><br>
+      <input type="text" id="addOrganisation" name="organisation"><br>
+      <label for="mobile">Mobile :</label><br>
+      <input type="text" id="addMobile" name="mobile"><br>
+      <label for="email">Email :</label><br>
+      <input type="email" id="addEmail" name="email"><br>
+      <label for="location">Location :</label><br>
+      <input type="text" id="addLocation" name="location"></input><br>
+      <label for="designation">Designation :</label><br>
+      <input type="text" id="addDesignation" name="designation"></input><br>
+
+      <button onclick="addContact()" type="submit">Add</button>
+      <button type="button" id="addcancelButton">Cancel</button>
+    </div>
+  </div>
+  <div id="editContactForm" class="edit-contact-form">
+    <h1>Edit Contact</h1>
+    <div style="width: 300px;">
+      <label for="userIMG">Contact Img :</label><br>
+      <input type="file" id="editContactIMG" name="userIMG"><br>
+      <label for="userName">User Name :</label><br>
+      <input type="text" id="editUserName" name="userName"><br>
+      <label for="organisation">Organisation :</label><br>
+      <input type="text" id="editOrganisation" name="organisation"><br>
+      <label for="mobile">Mobile :</label><br>
+      <input type="text" id="editMobile" name="mobile"><br>
+      <label for="email">Email :</label><br>
+      <input type="email" id="editEmail" name="email"><br>
+      <label for="location">Location :</label><br>
+      <input type="text" id="editLocation" name="location"></input><br>
+      <label for="designation">Designation :</label><br>
+      <input type="text" id="editDesignation" name="designation"></input><br>
+
+      <button onclick="editContact()" type="submit">Save</button>
+      <button type="button" id="editcancelButton">Cancel</button>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div style="display: flex; flex-direction: column">
+      <img src="/public/img/logo.png" style="height: 120px; width: 120px; margin-left: 60px" />
+      <p style="
+            font-size: larger;
+            color: black;
+            font-weight: 600;
+            margin-left: 70px;
+            margin-bottom: 20px;
+          ">
+        FarmEasy
+      </p>
+    </div>
+
+    <div style="
+          height: 600px;
+          background-color: rgba(253, 251, 255, 0.55);
+          font-size: large;
+          padding: 10px;
+          border-radius: 5px;
+        ">
+      <p style="
+            font-size: 22px;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 8px;
+            margin-top: 5px;
+            margin-left: 60px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          ">
+        Contacts
+      </p>
+      <a href="/dashboard" style="text-decoration: none; color: aliceblue">
+        <div class="side-items">
+          <p>Dashboard</p>
+        </div>
+      </a>
+
+      <div style="height: 5px"></div>
+
+      <a href="/schemes" style="text-decoration: none; color: aliceblue">
+        <div class="side-items">
+          <p>Schemes</p>
+        </div>
+      </a>
+      <div style="height: 5px"></div>
+      <a href="#" style="text-decoration: none; color: aliceblue">
+        <div class="side-items" style="background-color: rgb(25, 127, 164);">
+          <p>Contacts</p>
+        </div>
+      </a>
+
+      <div style="height: 5px"></div>
+      <a href="/feeds" style="text-decoration: none; color: aliceblue">
+        <div class="side-items">
+          <p>Feeds</p>
+        </div>
+      </a>
+      <div style="height: 5px"></div>
+      <a href="/profile" style="text-decoration: none; color: aliceblue">
+        <div class="side-items">
+          <p>User Profile</p>
+        </div>
+      </a>
+      <div style="height: 5px"></div>
+      <a href="/adminLogout" style="text-decoration: none; color: aliceblue">
+        <div class="side-items">
+          <p>Logout</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <div class="Sdetails"
+      style="display: flex; flex-direction: column; position: fixed; top: 0; left: 30; width: 100%; background-color: white; z-index: 1;">
+      <div class="bslot">
+        <div class="op">
+          <p>Add Contact</p>
+        </div>
+      </div>
+    </div>
+    <div class="cardContainer">
+      <% contacts.forEach(contact =>{ %>
+      <div class="contact-card">
+        <img src="<%= contact.contact_img %>" alt="Profile Image" />
+        <h2><%= contact.contact_name %></h2>
+        <p><strong>Organisation: </strong> <%= contact.contact_organisation %></p>
+        <p><strong>Mobile:</strong> <%= contact.contact_mobile %></p>
+        <p><strong>Email:</strong> <%= contact.contact_email %></p>
+        <p><strong>Location:</strong> <%= contact.contact_locality %></p>
+        <p><strong>Designation:</strong> <%= contact.contact_designation %></p>
+        <!-- Edit and delete buttons -->
+        <button  onclick="openEdit('<%= contact.contact_name %>','<%= contact.contact_organisation %>','<%= contact.contact_mobile %>','<%= contact.contact_email %>','<%= contact.contact_locality %>','<%= contact.contact_designation %>')">Edit</button>
+        <button id="deleteContactAction" onclick="deleteContact('<%= contact.contact_email %>')">Delete</button>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+  <script>
+    var addContactForm = document.getElementById("addContactForm");
+    var addcancelButton = document.getElementById("addcancelButton");
+    var editContactForm = document.getElementById("editContactForm");
+    var editcancelButton = document.getElementById("editcancelButton");
+    var bslot = document.querySelector('.bslot');
+    bslot.addEventListener('click', function () {
+      addContactForm.style.display = "block"
+    })
+    addcancelButton.addEventListener('click', function () {
+      addContactForm.style.display = "none"
+    })
+
+    editcancelButton.addEventListener('click', function () {
+      editContactForm.style.display = "none"
+    })
+
+    async function addContact(){
+      var contact_img = document.getElementById("addContactIMG").files[0];
+        var contact_name = document.getElementById("addUserName").value;
+        var contact_email = document.getElementById("addEmail").value;
+        var contact_locality = document.getElementById("addLocation").value;
+        var contact_mobile = document.getElementById("addMobile").value;
+        var contact_designation = document.getElementById("addDesignation").value;
+        var contact_organisation = document.getElementById("addOrganisation").value;
+
+
+
+        // Create FormData object
+        var formData = new FormData();
+
+        // Append form data to FormData object
+        formData.append("imgFile", contact_img);
+        formData.append("contact_name", contact_name);
+        formData.append("contact_email", contact_email);
+        formData.append("contact_mobile", contact_mobile);
+        formData.append("contact_locality", contact_locality);
+        formData.append("contact_organisation", contact_organisation);
+        formData.append("contact_designation", contact_designation);
+
+        try {
+          // Send form data to the server
+          const response = await fetch("/addContact/", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.status === 200) {
+            alert("Contact Added Successfully");
+            const data = await response.json();
+            window.location.reload();
+
+        } else if (response.status === 400) {
+            alert("No files were uploaded");
+          }
+          else if (response.status === 600) {
+            alert("Only Image files were allowed");
+          }
+          else {
+            alert("Failed to add feed. Status code: " + response.status);
+          }
+        } catch (error) {
+          console.error("Error adding feed:", error);
+          alert("Failed to add feed. Please try again later.");
+        }
+    }
+    
+    async function editContact() {
+  var contact_img = document.getElementById("editContactIMG").files[0];
+  var contact_name = document.getElementById("editUserName").value;
+  var contact_email = document.getElementById("editEmail").value;
+  var contact_locality = document.getElementById("editLocation").value;
+  var contact_mobile = document.getElementById("editMobile").value;
+  var contact_designation = document.getElementById("editDesignation").value;
+  var contact_organisation = document.getElementById("editOrganisation").value;
+
+
+  // Create FormData object
+  var formData = new FormData();
+
+  // Append form data to FormData object
+  formData.append("imgFile", contact_img);
+  formData.append("contact_name", contact_name);
+  formData.append("contact_email", contact_email);
+  formData.append("contact_mobile", contact_mobile);
+  formData.append("contact_locality", contact_locality);
+  formData.append("contact_organisation", contact_organisation);
+  formData.append("contact_designation", contact_designation);
+
+  try {
+    // Send form data to the server
+    const response = await fetch(`/editContact/${contact_email}`, {
+      method: "PUT",
+      body: formData,
+    });
+
+    if (response.status === 200) {
+      alert("Contact Updated Successfully");
+      const data = await response.json();
+      window.location.reload();
+    } else if (response.status === 400) {
+      alert("No files were uploaded");
+    } else if (response.status === 600) {
+      alert("Only Image files were allowed");
+    } else {
+      alert("Failed to update contact. Status code: " + response.status);
+    }
+  } catch (error) {
+    console.error("Error updating contact:", error);
+    alert("Failed to update contact. Please try again later.");
+  }
+}
+
+   function openEdit(contact_name,contact_organisation,contact_mobile,contact_email,contact_locality,contact_designation){
+  // Display the edit contact form
+  var editContactForm = document.getElementById("editContactForm");
+  editContactForm.style.display = "block";
+
+  // Populate the fields with the provided contact details
+  document.getElementById("editUserName").value = contact_name;
+  document.getElementById("editOrganisation").value = contact_organisation;
+  document.getElementById("editMobile").value = contact_mobile;
+  document.getElementById("editEmail").value = contact_email;
+  document.getElementById("editLocation").value = contact_locality;
+  document.getElementById("editDesignation").value = contact_designation;
+}
+
+   async function deleteContact(ID){
+        var data = await fetch('/contacts/deleteContact/'+ID, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if(response.status === 200){
+                    alert('Contact Deleted Successfully');
+                    window.location.reload();
+                }
+                else{
+                    alert('Failed to delete Feed');
+                }
+            })
+          }
+  </script>
+</body>
+
+</html>

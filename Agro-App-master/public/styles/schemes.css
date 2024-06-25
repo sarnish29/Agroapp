@@ -1,0 +1,252 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    width: 100px;
+}
+
+.request-counts {
+    text-align: right;
+}
+
+.sidebar {
+    background-color: #e4e4e4;
+    color: #fff;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 40px;
+    
+}
+
+.side-items{
+    background-color: rgb(10, 78, 13);
+    border-radius: 10px;
+    padding: 0.2px;
+    padding-left: 10px;
+    cursor: pointer;
+    padding-right: 7px;
+}
+
+
+.dashboard {
+    margin-left: 270px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.widget {
+    flex-basis: calc(33.33% - 20px);
+    margin-right: 40px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.bslot{
+    width: 180px;
+    height: 50px;
+    background-color: rgba(6, 75, 24, 0.957);
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+
+.op {
+    color: #fff;
+    padding-left: 40px;
+}
+
+.mainArea{
+    width: fit-content;
+    height: 700px;
+   margin-top: 25px;
+   border-radius: 5px;
+    background-color: rgba(108, 106, 104, 0.073);
+    display: flex;
+    flex-direction: column;
+    padding:15px;
+ margin-left: -173px;
+}
+
+.schemeCards{
+display: flex;
+flex-direction: column;
+width: 600px;
+height: fit-content;
+background-color: rgba(226, 226, 221, 0.779);
+border-radius: 5px;
+margin-bottom: 10px;
+padding-right: 25px;
+padding-left: 25px;
+}
+
+.srow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1px;
+   
+}
+
+.datacontainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.countContainer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+}
+
+.edit-scheme-form {
+    position: fixed;
+    display: none;
+    width: fit-content;
+    margin-top: 150px;
+    z-index: 5;
+    margin-left: 500px;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-scheme-form form {
+    width: 400px;
+}
+
+.edit-scheme-form label {
+    font-weight: bold;
+}
+
+.edit-scheme-form input[type="text"],
+.edit-scheme-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.edit-scheme-form button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-scheme-form button:hover {
+    background-color: #0056b3;
+}
+
+#cancelButton {
+    background-color: #dc3545;
+    margin-left: 10px;
+}
+
+.add-scheme-form {
+    position: fixed;
+    display: none;
+    width: fit-content;
+    margin-top: 150px;
+    z-index: 5;
+    margin-left: 500px;
+    padding: 40px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-scheme-form form {
+    width: 400px;
+}
+
+.add-scheme-form label {
+    font-weight: bold;
+}
+
+.add-scheme-form input[type="text"],
+.add-scheme-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.add-scheme-form button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-scheme-form button:hover {
+    background-color: #0056b3;
+}
+
+#addcancelButton {
+    background-color: #dc3545;
+    margin-left: 10px;
+}
+
+#viewDescription {
+    position: fixed;
+    display: none;
+    width: fit-content;
+    margin-top: 150px;
+    z-index: 5;
+    margin-left: 500px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#viewDescription button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
